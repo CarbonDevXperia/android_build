@@ -1509,6 +1509,10 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 .PHONY: otapackage carbon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 carbon: otapackage
+ifneq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
+	@echo "Running Chromium prebuilt setup script..."
+	$(hide) . $(TOPDIR)vendor/slim/utils/chromium_prebuilt.sh $(TOP)
+endif
 ifneq ($(TARGET_CUSTOM_RELEASETOOL),)
 	$(error TARGET_CUSTOM_RELEASETOOL is deprecated)
 endif
